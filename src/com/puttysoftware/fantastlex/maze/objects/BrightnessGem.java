@@ -14,28 +14,27 @@ import com.puttysoftware.fantastlex.resourcemanagers.SoundManager;
 public class BrightnessGem extends AbstractGem {
     // Constructors
     public BrightnessGem() {
-        super(ColorConstants.COLOR_YELLOW);
+	super(ColorConstants.COLOR_YELLOW);
     }
 
     @Override
     public String getName() {
-        return "Brightness Gem";
+	return "Brightness Gem";
     }
 
     @Override
     public String getPluralName() {
-        return "Brightness Gems";
+	return "Brightness Gems";
     }
 
     @Override
     public void postMoveActionHook() {
-        FantastleX.getApplication().getMazeManager().getMaze()
-                .setVisionRadiusToMaximum();
-        SoundManager.playSound(SoundConstants.SOUND_LIGHT);
+	FantastleX.getApplication().getMazeManager().getMaze().setVisionRadiusToMaximum();
+	SoundManager.playSound(SoundConstants.SOUND_LIGHT);
     }
 
     @Override
     public String getDescription() {
-        return "Brightness Gems increase the visible area to its maximum.";
+	return "Brightness Gems increase the visible area to its maximum.";
     }
 }

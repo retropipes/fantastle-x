@@ -8,11 +8,11 @@ package com.puttysoftware.fantastlex.creatures.monsters;
 class DefiniteFixedDynamicMonster extends AbstractDefiniteFixedMonster {
     // Constructors
     DefiniteFixedDynamicMonster() {
-        super();
+	super();
     }
 
     @Override
     public boolean dynamic() {
-        return true;
+	return true;
     }
 }

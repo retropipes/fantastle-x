@@ -18,44 +18,43 @@ public class MusicManager {
     private static OggPlayer CURRENT_MUSIC;
 
     private static OggPlayer getMusic(final String filename) {
-        try {
-            final URL u = MusicManager.LOAD_CLASS.getResource(
-                    MusicManager.LOAD_PATH + filename.toLowerCase() + ".ogg");
-            return new OggPlayer(u);
-        } catch (final NullPointerException np) {
-            return null;
-        }
+	try {
+	    final URL u = MusicManager.LOAD_CLASS.getResource(MusicManager.LOAD_PATH + filename.toLowerCase() + ".ogg");
+	    return new OggPlayer(u);
+	} catch (final NullPointerException np) {
+	    return null;
+	}
     }
 
     public static void playMusic(final String musicName) {
-        MusicManager.CURRENT_MUSIC = MusicManager.getMusic(musicName);
-        if (MusicManager.CURRENT_MUSIC != null) {
-            // Play the music
-            MusicManager.CURRENT_MUSIC.playLoop();
-        }
+	MusicManager.CURRENT_MUSIC = MusicManager.getMusic(musicName);
+	if (MusicManager.CURRENT_MUSIC != null) {
+	    // Play the music
+	    MusicManager.CURRENT_MUSIC.playLoop();
+	}
     }
 
     public static void stopMusic() {
-        if (MusicManager.CURRENT_MUSIC != null) {
-            // Stop the music
-            try {
-                MusicManager.CURRENT_MUSIC.stopLoop();
-            } catch (final BufferUnderflowException bue) {
-                // Ignore
-            } catch (final NullPointerException np) {
-                // Ignore
-            } catch (final Throwable t) {
-                FantastleX.logError(t);
-            }
-        }
+	if (MusicManager.CURRENT_MUSIC != null) {
+	    // Stop the music
+	    try {
+		MusicManager.CURRENT_MUSIC.stopLoop();
+	    } catch (final BufferUnderflowException bue) {
+		// Ignore
+	    } catch (final NullPointerException np) {
+		// Ignore
+	    } catch (final Throwable t) {
+		FantastleX.logError(t);
+	    }
+	}
     }
 
     public static boolean isMusicPlaying() {
-        if (MusicManager.CURRENT_MUSIC != null) {
-            if (MusicManager.CURRENT_MUSIC.isAlive()) {
-                return true;
-            }
-        }
-        return false;
+	if (MusicManager.CURRENT_MUSIC != null) {
+	    if (MusicManager.CURRENT_MUSIC.isAlive()) {
+		return true;
+	    }
+	}
+	return false;
     }
 }

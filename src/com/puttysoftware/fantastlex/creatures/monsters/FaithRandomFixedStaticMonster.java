@@ -8,11 +8,11 @@ package com.puttysoftware.fantastlex.creatures.monsters;
 class FaithRandomFixedStaticMonster extends AbstractFaithRandomFixedMonster {
     // Constructors
     FaithRandomFixedStaticMonster() {
-        super();
+	super();
     }
 
     @Override
     public boolean dynamic() {
-        return false;
+	return false;
     }
 }

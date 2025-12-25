@@ -11,21 +11,20 @@ import com.puttysoftware.fantastlex.maze.objects.TrueSightAmulet;
 public class TrueSight extends MazeEffect {
     // Constructor
     public TrueSight(final int newRounds) {
-        super("True Sight", newRounds);
+	super("True Sight", newRounds);
     }
 
     @Override
     public void customExtendLogic() {
-        // Apply the effect
-        FantastleX.getApplication().getGameManager().enableTrueSight();
+	// Apply the effect
+	FantastleX.getApplication().getGameManager().enableTrueSight();
     }
 
     @Override
     public void customTerminateLogic() {
-        // Remove item that granted effect from inventory
-        FantastleX.getApplication().getGameManager().getObjectInventory()
-                .removeItem(new TrueSightAmulet());
-        // Undo the effect
-        FantastleX.getApplication().getGameManager().disableTrueSight();
+	// Remove item that granted effect from inventory
+	FantastleX.getApplication().getGameManager().getObjectInventory().removeItem(new TrueSightAmulet());
+	// Undo the effect
+	FantastleX.getApplication().getGameManager().disableTrueSight();
     }
 }

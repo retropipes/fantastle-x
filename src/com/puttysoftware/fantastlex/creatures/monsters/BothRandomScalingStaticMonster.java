@@ -8,11 +8,11 @@ package com.puttysoftware.fantastlex.creatures.monsters;
 class BothRandomScalingStaticMonster extends AbstractBothRandomScalingMonster {
     // Constructors
     BothRandomScalingStaticMonster() {
-        super();
+	super();
     }
 
     @Override
     public boolean dynamic() {
-        return false;
+	return false;
     }
 }

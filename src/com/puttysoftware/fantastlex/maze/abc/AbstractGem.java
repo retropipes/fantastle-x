@@ -21,57 +21,52 @@ public abstract class AbstractGem extends AbstractMazeObject {
 
     // Constructors
     protected AbstractGem(final int tc) {
-        super(false, true);
-        this.setTemplateColor(tc);
+	super(false, true);
+	this.setTemplateColor(tc);
     }
 
     @Override
-    public void postMoveAction(final boolean ie, final int dirX, final int dirY,
-            final MazeObjectInventory inv) {
-        FantastleX.getApplication().getGameManager().decay();
-        FantastleX.getApplication().getGameManager()
-                .addToScore(AbstractGem.SCORE_GRAB);
-        this.postMoveActionHook();
-        FantastleX.getApplication().getGameManager().redrawMaze();
+    public void postMoveAction(final boolean ie, final int dirX, final int dirY, final MazeObjectInventory inv) {
+	FantastleX.getApplication().getGameManager().decay();
+	FantastleX.getApplication().getGameManager().addToScore(AbstractGem.SCORE_GRAB);
+	this.postMoveActionHook();
+	FantastleX.getApplication().getGameManager().redrawMaze();
     }
 
     @Override
     public int getBaseID() {
-        return ObjectImageConstants.OBJECT_IMAGE_GEM;
+	return ObjectImageConstants.OBJECT_IMAGE_GEM;
     }
 
     public abstract void postMoveActionHook();
 
     @Override
     protected void setTypes() {
-        this.type.set(TypeConstants.TYPE_GEM);
-        this.type.set(TypeConstants.TYPE_CONTAINABLE);
+	this.type.set(TypeConstants.TYPE_GEM);
+	this.type.set(TypeConstants.TYPE_CONTAINABLE);
     }
 
     @Override
     public int getLayer() {
-        return MazeConstants.LAYER_OBJECT;
+	return MazeConstants.LAYER_OBJECT;
     }
 
     @Override
-    public boolean arrowHitAction(final int locX, final int locY,
-            final int locZ, final int dirX, final int dirY, final int arrowType,
-            final MazeObjectInventory inv) {
-        FantastleX.getApplication().getGameManager().morph(new Empty(), locX,
-                locY, locZ);
-        SoundManager.playSound(SoundConstants.SOUND_SHATTER);
-        FantastleX.getApplication().getGameManager()
-                .addToScore(AbstractGem.SCORE_SMASH);
-        return false;
+    public boolean arrowHitAction(final int locX, final int locY, final int locZ, final int dirX, final int dirY,
+	    final int arrowType, final MazeObjectInventory inv) {
+	FantastleX.getApplication().getGameManager().morph(new Empty(), locX, locY, locZ);
+	SoundManager.playSound(SoundConstants.SOUND_SHATTER);
+	FantastleX.getApplication().getGameManager().addToScore(AbstractGem.SCORE_SMASH);
+	return false;
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-        return AbstractMazeObject.DEFAULT_CUSTOM_VALUE;
+	return AbstractMazeObject.DEFAULT_CUSTOM_VALUE;
     }
 
     @Override
     public void setCustomProperty(final int propID, final int value) {
-        // Do nothing
+	// Do nothing
     }
 }

@@ -35,123 +35,122 @@ public class GUIManager {
 
     // Constructors
     public GUIManager() {
-        final CloseHandler cHandler = new CloseHandler();
-        this.guiFrame = new JFrame("FantastleX");
-        final Container guiPane = this.guiFrame.getContentPane();
-        this.guiFrame
-                .setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        this.guiFrame.setLayout(new GridLayout(1, 1));
-        this.logoLabel = new JLabel("", null, SwingConstants.CENTER);
-        this.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
-        guiPane.add(this.logoLabel);
-        this.guiFrame.setResizable(false);
-        this.guiFrame.addWindowListener(cHandler);
+	final CloseHandler cHandler = new CloseHandler();
+	this.guiFrame = new JFrame("FantastleX");
+	final Container guiPane = this.guiFrame.getContentPane();
+	this.guiFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.guiFrame.setLayout(new GridLayout(1, 1));
+	this.logoLabel = new JLabel("", null, SwingConstants.CENTER);
+	this.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
+	guiPane.add(this.logoLabel);
+	this.guiFrame.setResizable(false);
+	this.guiFrame.addWindowListener(cHandler);
     }
 
     // Methods
     public JFrame getGUIFrame() {
-        if (this.guiFrame.isVisible()) {
-            return this.guiFrame;
-        } else {
-            return null;
-        }
+	if (this.guiFrame.isVisible()) {
+	    return this.guiFrame;
+	} else {
+	    return null;
+	}
     }
 
     public void showGUI() {
-        final Application app = FantastleX.getApplication();
-        app.setInGUI();
-        this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
-        this.guiFrame.setVisible(true);
-        app.getMenuManager().setMainMenus();
-        app.getMenuManager().checkFlags();
+	final Application app = FantastleX.getApplication();
+	app.setInGUI();
+	this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
+	this.guiFrame.setVisible(true);
+	app.getMenuManager().setMainMenus();
+	app.getMenuManager().checkFlags();
     }
 
     public void hideGUI() {
-        this.guiFrame.setVisible(false);
+	this.guiFrame.setVisible(false);
     }
 
     public void hideGUITemporarily() {
-        this.guiFrame.setVisible(false);
+	this.guiFrame.setVisible(false);
     }
 
     public void updateLogo() {
-        final BufferedImageIcon logo = LogoManager.getLogo();
-        this.logoLabel.setIcon(logo);
-        final Image iconlogo = FantastleX.getApplication().getIconLogo();
-        this.guiFrame.setIconImage(iconlogo);
-        this.guiFrame.pack();
+	final BufferedImageIcon logo = LogoManager.getLogo();
+	this.logoLabel.setIcon(logo);
+	final Image iconlogo = FantastleX.getApplication().getIconLogo();
+	this.guiFrame.setIconImage(iconlogo);
+	this.guiFrame.pack();
     }
 
     public boolean quitHandler() {
-        final MazeManager mm = FantastleX.getApplication().getMazeManager();
-        boolean saved = true;
-        int status = JOptionPane.DEFAULT_OPTION;
-        if (mm.getDirty()) {
-            status = mm.showSaveDialog();
-            if (status == JOptionPane.YES_OPTION) {
-                saved = mm.saveMaze();
-            } else if (status == JOptionPane.CANCEL_OPTION) {
-                saved = false;
-            } else {
-                mm.setDirty(false);
-            }
-        }
-        if (saved) {
-            PreferencesManager.writePrefs();
-            if (PreferencesManager.areCharacterChangesPermanent()) {
-                PartyManager.writebackCharacters();
-            }
-            // Run cleanup task
-            try {
-                final File dirToDelete = new File(Maze.getMazeTempFolder());
-                DirectoryUtilities.removeDirectory(dirToDelete);
-            } catch (final Throwable t) {
-                // Ignore
-            }
-        }
-        return saved;
+	final MazeManager mm = FantastleX.getApplication().getMazeManager();
+	boolean saved = true;
+	int status = JOptionPane.DEFAULT_OPTION;
+	if (mm.getDirty()) {
+	    status = mm.showSaveDialog();
+	    if (status == JOptionPane.YES_OPTION) {
+		saved = mm.saveMaze();
+	    } else if (status == JOptionPane.CANCEL_OPTION) {
+		saved = false;
+	    } else {
+		mm.setDirty(false);
+	    }
+	}
+	if (saved) {
+	    PreferencesManager.writePrefs();
+	    if (PreferencesManager.areCharacterChangesPermanent()) {
+		PartyManager.writebackCharacters();
+	    }
+	    // Run cleanup task
+	    try {
+		final File dirToDelete = new File(Maze.getMazeTempFolder());
+		DirectoryUtilities.removeDirectory(dirToDelete);
+	    } catch (final Throwable t) {
+		// Ignore
+	    }
+	}
+	return saved;
     }
 
     private class CloseHandler implements WindowListener {
-        CloseHandler() {
-            // Do nothing
-        }
+	CloseHandler() {
+	    // Do nothing
+	}
 
-        @Override
-        public void windowActivated(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowActivated(final WindowEvent arg0) {
+	    // Do nothing
+	}
 
-        @Override
-        public void windowClosed(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowClosed(final WindowEvent arg0) {
+	    // Do nothing
+	}
 
-        @Override
-        public void windowClosing(final WindowEvent arg0) {
-            if (GUIManager.this.quitHandler()) {
-                System.exit(0);
-            }
-        }
+	@Override
+	public void windowClosing(final WindowEvent arg0) {
+	    if (GUIManager.this.quitHandler()) {
+		System.exit(0);
+	    }
+	}
 
-        @Override
-        public void windowDeactivated(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowDeactivated(final WindowEvent arg0) {
+	    // Do nothing
+	}
 
-        @Override
-        public void windowDeiconified(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowDeiconified(final WindowEvent arg0) {
+	    // Do nothing
+	}
 
-        @Override
-        public void windowIconified(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowIconified(final WindowEvent arg0) {
+	    // Do nothing
+	}
 
-        @Override
-        public void windowOpened(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowOpened(final WindowEvent arg0) {
+	    // Do nothing
+	}
     }
 }
